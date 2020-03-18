@@ -3,7 +3,7 @@ module.exports = {
     host: 'localhost',
     username: 'postgres',
     password: '209101',
-    database: 'db_splitweb',
+    database: 'db_proj_split_web',
     define: {
         timestamps: true,
         underscored: true,

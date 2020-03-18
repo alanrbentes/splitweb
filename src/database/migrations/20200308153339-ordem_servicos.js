@@ -12,14 +12,14 @@ module.exports = {
                 references: { model: 'users', key: 'id' },
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL',
-                allowNull: true,
+                allowNull: false,
             },
             id_aparelho: {
                 type: Sequelize.INTEGER,
                 references: { model: 'aparelhos', key: 'id' },
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL',
-                allowNull: true,
+                allowNull: false,
             },
             descricao_servico: {
                 type: Sequelize.STRING,

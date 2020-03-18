@@ -13,6 +13,7 @@ class UserController {
                 .json({ error: 'Email de usuário já cadastrado' });
         }
         // { name, email, password, provider }
+
         const user = await User.create(req.body);
 
         return res.json(user);
@@ -37,9 +38,9 @@ class UserController {
         if (oldPassword && !(await user.checkPassword(oldPassword))) {
             return res.status(401).json({ error: 'senha invalida' });
         }
-        const { id, name, provider } = await user.update(req.body);
+        const { id, name } = await user.update(req.body);
 
-        return res.json({ id, name, email, provider });
+        return res.json({ id, name, email });
     }
 }
 

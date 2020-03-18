@@ -13,6 +13,7 @@ class Cliente extends Model {
                 complemento: Sequelize.STRING,
                 bairro: Sequelize.STRING,
                 cep: Sequelize.STRING,
+                canceled_at: Sequelize.DATE,
             },
             {
                 sequelize,
@@ -23,7 +24,7 @@ class Cliente extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
     }
     // static associate(models) {
     //     this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
