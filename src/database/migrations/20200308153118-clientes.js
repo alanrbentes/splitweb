@@ -12,7 +12,7 @@ module.exports = {
                 references: { model: 'users', key: 'id' },
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL',
-                allowNull: true,
+                allowNull: false,
             },
             nome: {
                 type: Sequelize.STRING,
@@ -58,7 +58,7 @@ module.exports = {
             },
             updated_at: {
                 type: Sequelize.DATE,
-                allowNull: false,
+                allowNull: true,
             },
             canceled_at: {
                 type: Sequelize.DATE,
