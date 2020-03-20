@@ -1,9 +1,10 @@
 import Cliente from '../models/Cliente';
-// import Cache from '../../lib/Cache';
+import Cache from '../../lib/Cache';
 
 class ClienteController {
     async list(req, res) {
         try {
+            const { page = 1 } = req.query;
             const { id } = req.query;
 
             if (id) {
@@ -17,32 +18,23 @@ class ClienteController {
 
                 return res.json(cliente);
             }
-            // const { page = 1 } = req.query;
+            const cacheKey = `user:${req.userId}:lclientes`;
+            const cached = await Cache.get(cacheKey);
 
-            // const cacheKey = `user:${req.userId}:cliente:${page}`;
-            // const cached = await Cache.get(cacheKey);
-
-            // if (cached) {
-            //     return res.json(cached);
-            // }
-
+            if (cached) {
+                return res.json(cached);
+            }
             const clientes = await Cliente.findAll({
                 where: { user_id: req.userId, canceled_at: null },
                 limit: 20,
+                offset: (page - 1) * 20,
             });
 
             if (clientes.length === 0) {
-                return res.json({ message: 'Nenhum cliente encontrado!' });
+                return res.json({ message: 'Nenhum cliente cadastrado!' });
             }
 
-            // if (clientes) {
-            //     const cached = await Cache.get('clientes');
-
-            //     if (cached) {
-            //         return res.json(cached);
-            //     }
-            // }
-            // await Cache.set('clientes', clientes);
+            await Cache.set(cacheKey, clientes);
             return res.json(clientes);
         } catch (err) {
             return res.status(400).json({
@@ -53,14 +45,16 @@ class ClienteController {
     }
 
     async store(req, res) {
-        req.body.user_id = req.userId;
-
         try {
-            const objCliente = await Cliente.create(req.body);
-
+            req.body.user_id = req.userId;
+            const cliente = await Cliente.create(req.body);
+            if (cliente) {
+                const cacheKey = `user:${req.userId}:lclientes`;
+                await Cache.invalidate(cacheKey);
+            }
             return res.json({
                 message: 'Cliente salvo com sucesso!',
-                objSave: objCliente,
+                objSave: cliente,
             });
         } catch (err) {
             return res.status(400).json({
@@ -101,6 +95,10 @@ class ClienteController {
             cliente.update_at = new Date();
 
             await cliente.save();
+            if (cliente) {
+                const cacheKey = `user:${req.userId}:lclientes`;
+                await Cache.invalidate(cacheKey);
+            }
             return res.status(200).json({
                 success: 'Registro atualizado com sucesso!',
             });
@@ -131,6 +129,10 @@ class ClienteController {
             if (cliente) {
                 cliente.canceled_at = new Date();
                 await cliente.save();
+
+                const cacheKey = `user:${req.userId}:lclientes`;
+                await Cache.invalidate(cacheKey);
+
                 return res.status(200).json({
                     success: 'Registro excluído com sucesso!',
                 });
