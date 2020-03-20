@@ -4,6 +4,7 @@ import SessionController from './app/controllers/SessionController';
 import authMiddleware from './app/middlewares/auth';
 import ClienteController from './app/controllers/ClienteController';
 import AparelhoController from './app/controllers/AparelhoController';
+import OrdemServicoController from './app/controllers/OrdemServicoController';
 
 import validateUserStore from './app/validators/UserStore';
 import validateUserUpdate from './app/validators/UserUpdate';
@@ -26,5 +27,10 @@ router.get('/aparelho', AparelhoController.list);
 router.post('/aparelho', AparelhoController.store);
 router.put('/aparelho', AparelhoController.update);
 router.delete('/aparelho/:id', AparelhoController.delete);
+
+router.get('/ordem-servico', OrdemServicoController.list);
+router.post('/ordem-servico', OrdemServicoController.store);
+router.put('/ordem-servico', OrdemServicoController.update);
+router.delete('/ordem-servico/:id', OrdemServicoController.delete);
 
 export default router;
