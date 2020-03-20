@@ -24,15 +24,9 @@ class Cliente extends Model {
     }
 
     static associate(models) {
-        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
+        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
     }
-    // static associate(models) {
-    //     this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
-    //     this.belongsTo(models.Cliente, {
-    //         foreignKey: 'id_cliente',
-    //         as: 'cliente',
-    //     });
-    // }
+
 }
 
 export default Cliente;
