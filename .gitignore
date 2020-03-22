@@ -1,5 +1,6 @@
 node_modules
-env
-yarn-error.log
-yarn.lock
+dist
+.env
+tmp/uploads/*
+!tmp/uploads/.gitkeep
 
