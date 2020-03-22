@@ -74,7 +74,11 @@ class ClienteController {
                     canceled_at: null,
                 },
             });
-
+            if (cliente.user_id !== req.userId) {
+                return res.status(401).json({
+                    error: 'O registro não pode ser atualizado!',
+                });
+            }
             cliente.nome = req.body.nome;
 
             if (cliente.email !== req.body.email) {

@@ -75,6 +75,12 @@ class AparelhoController {
                 },
             });
 
+            if (aparelho.user_id !== req.userId) {
+                return res.status(401).json({
+                    error: 'O registro não pode ser atualizado!',
+                });
+            }
+
             aparelho.modelo = req.body.modelo;
             aparelho.descricao = req.body.descricao;
             aparelho.local_instalacao = req.body.local_instalacao;

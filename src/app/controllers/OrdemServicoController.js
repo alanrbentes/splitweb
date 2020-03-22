@@ -78,6 +78,11 @@ class OrdemServicoController {
                     canceled_at: null,
                 },
             });
+            if (ordem_servico.user_id !== req.userId) {
+                return res.status(401).json({
+                    error: 'O registro não pode ser atualizado!',
+                });
+            }
             ordem_servico.id_aparelho = req.body.id_aparelho;
             ordem_servico.descricao_servico = req.body.descricao_servico;
             ordem_servico.data_garantia = req.body.data_garantia;
