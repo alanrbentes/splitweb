@@ -3,4 +3,5 @@ dist
 .env
 tmp/uploads/*
 !tmp/uploads/.gitkeep
+CHANGELOG.md
 
