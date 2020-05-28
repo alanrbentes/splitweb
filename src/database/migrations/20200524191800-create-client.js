@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('ordens_servicos', {
+        return queryInterface.createTable('clientes', {
             id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
@@ -14,27 +14,42 @@ module.exports = {
                 onDelete: 'SET NULL',
                 allowNull: false,
             },
-            id_aparelho: {
-                type: Sequelize.INTEGER,
-                references: { model: 'aparelhos', key: 'id' },
-                onUpdate: 'CASCADE',
-                onDelete: 'SET NULL',
-                allowNull: false,
-            },
-            descricao_servico: {
+            nome: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            data_garantia: {
-                type: Sequelize.DATE,
+            email: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            ddd: {
+                type: Sequelize.STRING,
                 allowNull: false,
             },
-            observacao: {
+            celular: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            uf: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            endereco: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            complemento: {
                 type: Sequelize.STRING,
                 allowNull: true,
             },
-            valor: {
-                type: Sequelize.DECIMAL(10, 2),
+            bairro: {
+                type: Sequelize.STRING,
+                allowNull: true,
+            },
+            cep: {
+                type: Sequelize.STRING,
                 allowNull: false,
             },
             created_at: {
@@ -43,7 +58,7 @@ module.exports = {
             },
             updated_at: {
                 type: Sequelize.DATE,
-                allowNull: true,
+                allowNull: false,
             },
             canceled_at: {
                 type: Sequelize.DATE,
@@ -52,6 +67,6 @@ module.exports = {
         });
     },
     down: queryInterface => {
-        return queryInterface.dropTable('ordens_servicos');
+        return queryInterface.dropTable('clientes');
     },
 };
