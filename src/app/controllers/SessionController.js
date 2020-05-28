@@ -24,7 +24,7 @@ class SessionController {
         }
 
         const { id, name } = user;
-
+        // NO RETORNO DO TOKEN ESTA SENDO ADD O ID DO USER
         return res.json({
             user: {
                 id,
