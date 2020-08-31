@@ -16,7 +16,9 @@ router.post('/session', SessionController.store);
 
 // validação de token
 router.use(authMiddleware);
-router.put('/update', validateUserUpdate, UserController.update);
+
+router.put('/users', validateUserUpdate, UserController.update);
+router.delete('/users/:id', UserController.delete);
 
 router.get('/cliente', ClienteController.list);
 router.post('/cliente', ClienteController.store);

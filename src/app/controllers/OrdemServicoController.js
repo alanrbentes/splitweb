@@ -13,8 +13,8 @@ class OrdemServicoController {
                 });
 
                 if (!ordem_servico) {
-                    return res.json({
-                        message: 'Nenhuma ordem de servico encontrada!',
+                    return res.status(200).json({
+                        error: 'Ordem de serviço não encontrada!',
                     });
                 }
 
@@ -34,7 +34,7 @@ class OrdemServicoController {
 
             if (ordem_servico.length === 0) {
                 return res.json({
-                    message: 'Nenhuma Ordem de Serviço cadastrada!',
+                    message: 'Nenhuma ordem de serviço cadastrada!',
                 });
             }
 
@@ -78,6 +78,13 @@ class OrdemServicoController {
                     canceled_at: null,
                 },
             });
+
+            if (!ordem_servico) {
+                return res.status(200).json({
+                    error: 'Ordem de serviço não encontrada!',
+                });
+            }
+
             if (ordem_servico.user_id !== req.userId) {
                 return res.status(401).json({
                     error: 'O registro não pode ser atualizado!',
@@ -115,6 +122,12 @@ class OrdemServicoController {
                     canceled_at: null,
                 },
             });
+
+            if (!ordem_servico) {
+                return res.status(200).json({
+                    error: 'Ordem de serviço não encontrada!',
+                });
+            }
 
             if (ordem_servico.user_id !== req.userId) {
                 return res.status(401).json({
