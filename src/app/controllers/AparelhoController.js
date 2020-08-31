@@ -13,7 +13,9 @@ class AparelhoController {
                 });
 
                 if (!aparelho) {
-                    return res.json({ message: 'Aparelho não encontrado!' });
+                    return res.status(200).json({
+                        error: 'Aparelho não encontrado!',
+                    });
                 }
 
                 return res.json(aparelho);
@@ -48,13 +50,15 @@ class AparelhoController {
         try {
             req.body.user_id = req.userId;
             const aparelho = await Aparelho.create(req.body);
+
             if (aparelho) {
                 const cacheKey = `user:${req.userId}:laparelhos`;
                 await Cache.invalidate(cacheKey);
             }
+
             return res.json({
                 message: 'Aparelho salvo com sucesso!',
-                objSave: aparelho,
+                aparelho: aparelho,
             });
         } catch (err) {
             return res.status(400).json({
@@ -75,6 +79,12 @@ class AparelhoController {
                 },
             });
 
+            if (!aparelho) {
+                return res.status(200).json({
+                    error: 'Aparelho não encontrado!',
+                });
+            }
+
             if (aparelho.user_id !== req.userId) {
                 return res.status(401).json({
                     error: 'O registro não pode ser atualizado!',
@@ -87,6 +97,7 @@ class AparelhoController {
             aparelho.update_at = new Date();
 
             await aparelho.save();
+
             if (aparelho) {
                 const cacheKey = `user:${req.userId}:laparelhos`;
                 await Cache.invalidate(cacheKey);

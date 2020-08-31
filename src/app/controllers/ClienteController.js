@@ -13,7 +13,9 @@ class ClienteController {
                 });
 
                 if (!cliente) {
-                    return res.json({ message: 'Cliente não encontrado!' });
+                    return res.status(200).json({
+                        error: 'Registro não encontrado!',
+                    });
                 }
 
                 return res.json(cliente);
@@ -74,6 +76,13 @@ class ClienteController {
                     canceled_at: null,
                 },
             });
+
+            if (!cliente) {
+                return res.status(200).json({
+                    error: 'Registro não encontrado!',
+                });
+            }
+
             if (cliente.user_id !== req.userId) {
                 return res.status(401).json({
                     error: 'O registro não pode ser atualizado!',
@@ -123,6 +132,12 @@ class ClienteController {
                     canceled_at: null,
                 },
             });
+
+            if (!cliente) {
+                return res.status(401).json({
+                    error: 'O registro não encontrado!',
+                });
+            }
 
             if (cliente.user_id !== req.userId) {
                 return res.status(401).json({

@@ -15,7 +15,10 @@ class SessionController {
             return res.status(400).json({ error: 'Dados enviados com falha' });
         }
         const { email, password } = req.body;
-        const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({
+            where: { email, canceled_at: null  }
+
+        });
         if (!user) {
             return res.status(401).json({ error: 'usuario não encontrado' });
         }

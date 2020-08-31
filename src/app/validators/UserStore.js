@@ -17,6 +17,6 @@ export default async (req, res, next) => {
     } catch (err) {
         return res
             .status(400)
-            .json({ error: 'Dados enviados com falha', messages: err.inner });
+            .json({ error: 'Falha no envio dos dados!', messages: err.inner });
     }
 };
