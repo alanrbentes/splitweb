@@ -26,7 +26,6 @@ class Cliente extends Model {
     static associate(models) {
         this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
     }
-
 }
 
 export default Cliente;

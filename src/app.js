@@ -1,7 +1,8 @@
-require('dotenv').config();
 import express from 'express';
 import routes from './routes';
 import './database';
+
+require('dotenv').config();
 
 // configuração da estrutura da app, registros d;
 class App {

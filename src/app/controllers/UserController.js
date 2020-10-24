@@ -1,10 +1,8 @@
 import User from '../models/User';
 import Cache from '../../lib/Cache';
 
-
 class UserController {
     async store(req, res) {
-
         // verifico se o email já não está cadastrado
         const userExists = await User.findOne({
             where: { email: req.body.email },
@@ -22,7 +20,6 @@ class UserController {
     }
 
     async update(req, res) {
-
         const { email, oldPassword } = req.body;
         const user = await User.findByPk(req.userId);
 
@@ -48,7 +45,7 @@ class UserController {
         return res.json({ id, name, email });
     }
 
-    async delete(req, res){
+    async delete(req, res) {
         try {
             const user = await User.findByPk(req.userId);
 
@@ -75,12 +72,11 @@ class UserController {
                     success: 'Registro excluído com sucesso!',
                 });
             }
-
         } catch (error) {
             return error.status(400).json({
                 msg: 'O Registro não pode ser excluído!',
                 objError: error,
-            })
+            });
         }
     }
 }

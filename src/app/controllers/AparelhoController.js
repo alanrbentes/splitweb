@@ -58,7 +58,7 @@ class AparelhoController {
 
             return res.json({
                 message: 'Aparelho salvo com sucesso!',
-                aparelho: aparelho,
+                aparelho,
             });
         } catch (err) {
             return res.status(400).json({

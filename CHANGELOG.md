@@ -8,4 +8,5 @@
 - yarn sequelize migration:create --name=nome-tabela;
 - yarn sequelize db:migrate
 
+
 -Finalizando crud teste API nodejs - 31-08-2020

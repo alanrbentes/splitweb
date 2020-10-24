@@ -15,7 +15,7 @@ class OrdemServico extends Model {
             {
                 sequelize,
                 freezeTableName: true,
-                tableName: 'ordens_servicos'
+                tableName: 'ordens_servicos',
             }
         );
 
